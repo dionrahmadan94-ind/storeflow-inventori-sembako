@@ -5,11 +5,11 @@
  * Kompatibel dengan Mac Local MySQL (password 'root') & XAMPP Default (password '')
  */
 
-$db_host = '127.0.0.1';
-$db_port = 3306;
-$db_name = 'db_inventori';
-$db_user = 'root';
-$db_pass = 'root'; // Password default pada Mac local / MAMP
+$db_host = getenv('DB_HOST') ?: '127.0.0.1';
+$db_port = getenv('DB_PORT') ?: 3306;
+$db_name = getenv('DB_NAME') ?: 'db_inventori';
+$db_user = getenv('DB_USER') ?: 'root';
+$db_pass = getenv('DB_PASS') ?: 'root'; // Password default pada Mac local / MAMP
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Lempar exception saat terjadi error query
