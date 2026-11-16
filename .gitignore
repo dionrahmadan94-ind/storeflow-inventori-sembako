@@ -1,0 +1,17 @@
+# Operating System
+.DS_Store
+Thumbs.db
+
+# IDE & Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# PHP & Local
+error_log
+*.log
+
+# Gitkeep uploads directory but ignore user-uploaded files if desired
+# !uploads/.gitkeep
+

@@ -1,0 +1,1157 @@
+/* ==========================================================================
+   Storeflow Inspired Modern Clean Design System
+   Sistem Inventori Sembako
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Color Palette - Storeflow Forest & Sage */
+  --sf-primary: #0F382C;
+  --sf-primary-hover: #09241C;
+  --sf-primary-light: #165342;
+  --sf-mint: #22C55E;
+  --sf-mint-soft: #E8F5E9;
+  --sf-mint-border: #C8E6C9;
+  --sf-mint-dark: #1B5E20;
+  
+  /* Neutral & Surfaces */
+  --sf-bg: #F8FAFC;
+  --sf-surface: #FFFFFF;
+  --sf-border: #EEF2F6;
+  --sf-border-strong: #E2E8F0;
+  
+  /* Typography */
+  --sf-text-main: #0F172A;
+  --sf-text-muted: #64748B;
+  --sf-text-subtle: #94A3B8;
+  
+  /* Status Colors */
+  --sf-success-bg: #DCFCE7;
+  --sf-success-text: #15803D;
+  --sf-warning-bg: #FEF3C7;
+  --sf-warning-text: #B45309;
+  --sf-danger-bg: #FEE2E2;
+  --sf-danger-text: #B91C1C;
+  --sf-info-bg: #E0F2FE;
+  --sf-info-text: #0369A1;
+  
+  /* Radii & Shadows */
+  --sf-radius-sm: 8px;
+  --sf-radius-md: 12px;
+  --sf-radius-lg: 18px;
+  --sf-radius-xl: 24px;
+  --sf-radius-pill: 9999px;
+  --sf-shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04);
+  --sf-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+  --sf-shadow-hover: 0 8px 25px -4px rgba(15, 23, 42, 0.08);
+}
+
+/* Base Reset & Typography */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--sf-bg);
+  color: var(--sf-text-main);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--sf-text-main);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--sf-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: var(--sf-primary-hover);
+}
+
+/* ==========================================================================
+   Main App Layout (Sidebar + Content)
+   ========================================================================== */
+.sf-app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Sidebar Backdrop (Mobile/Tablet) */
+.sf-sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.sf-sidebar-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Sidebar */
+.sf-sidebar {
+  width: 260px;
+  background: var(--sf-surface);
+  border-right: 1px solid var(--sf-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  padding: 24px 16px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sf-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 20px 8px;
+  border-bottom: 1px solid var(--sf-border);
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.sf-brand-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--sf-primary);
+  color: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(15, 56, 44, 0.2);
+  flex-shrink: 0;
+}
+
+.sf-brand-text {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--sf-text-main);
+  letter-spacing: -0.03em;
+}
+
+.sf-sidebar-menu-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sf-menu-category {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sf-text-subtle);
+  margin: 16px 8px 8px 8px;
+}
+
+.sf-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sf-nav-item {
+  position: relative;
+}
+
+.sf-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--sf-radius-md);
+  color: var(--sf-text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.sf-nav-link i {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.sf-nav-link:hover {
+  color: var(--sf-text-main);
+  background-color: #F1F5F9;
+}
+
+/* Active Nav State - Storeflow Soft Mint Pill */
+.sf-nav-link.active {
+  background-color: var(--sf-mint-soft);
+  color: var(--sf-primary);
+  font-weight: 700;
+}
+
+.sf-nav-link.active i {
+  color: var(--sf-primary);
+  transform: scale(1.08);
+}
+
+/* Sidebar Footer / Role Card */
+.sf-sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  flex-shrink: 0;
+}
+
+.sf-role-card {
+  background: #0F382C;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-radius: var(--sf-radius-lg);
+  padding: 16px;
+  position: relative;
+}
+
+.sf-role-card .badge-role {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: var(--sf-radius-pill);
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+/* Main Content Area */
+.sf-main-content {
+  flex: 1;
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  max-width: calc(100% - 260px);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Topbar Header */
+.sf-topbar {
+  height: 72px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--sf-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.sf-search-box {
+  position: relative;
+  width: 320px;
+}
+
+.sf-search-box input {
+  width: 100%;
+  height: 40px;
+  background-color: #F8FAFC;
+  border: 1px solid var(--sf-border-strong);
+  border-radius: var(--sf-radius-pill);
+  padding: 0 16px 0 40px;
+  font-size: 0.88rem;
+  color: var(--sf-text-main);
+  transition: all 0.2s ease;
+}
+
+.sf-search-box input:focus {
+  outline: none;
+  background-color: #fff;
+  border-color: var(--sf-primary);
+  box-shadow: 0 0 0 3px rgba(15, 56, 44, 0.1);
+}
+
+.sf-search-box .search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sf-text-subtle);
+  font-size: 0.92rem;
+  pointer-events: none;
+}
+
+.sf-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sf-date-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sf-surface);
+  border: 1px solid var(--sf-border-strong);
+  padding: 6px 14px;
+  border-radius: var(--sf-radius-pill);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--sf-text-muted);
+  white-space: nowrap;
+}
+
+.sf-date-badge i {
+  color: var(--sf-primary);
+}
+
+.sf-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 4px;
+  cursor: pointer;
+}
+
+.sf-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--sf-primary);
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sf-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sf-user-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.sf-user-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--sf-text-main);
+  white-space: nowrap;
+}
+
+.sf-user-role {
+  font-size: 0.72rem;
+  color: var(--sf-text-muted);
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* Content Body */
+.sf-body-container {
+  padding: 28px 32px;
+  flex: 1;
+}
+
+/* ==========================================================================
+   Storeflow Modern Cards
+   ========================================================================== */
+.sf-card {
+  background: var(--sf-surface);
+  border: 1px solid var(--sf-border);
+  border-radius: var(--sf-radius-lg);
+  padding: 22px 24px;
+  box-shadow: var(--sf-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.sf-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 12px;
+}
+
+.sf-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--sf-text-main);
+}
+
+/* Stat Cards (Top Row) */
+.sf-stat-card {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
+}
+
+.sf-stat-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--sf-text-muted);
+  margin-bottom: 0;
+}
+
+.sf-stat-value {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--sf-text-main);
+  letter-spacing: -0.03em;
+  margin: 6px 0;
+  line-height: 1.1;
+}
+
+.sf-stat-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--sf-radius-pill);
+  line-height: 1;
+}
+
+.sf-stat-trend.positive {
+  background: var(--sf-success-bg);
+  color: var(--sf-success-text);
+}
+
+.sf-stat-trend.neutral {
+  background: #F1F5F9;
+  color: var(--sf-text-muted);
+}
+
+.sf-stat-trend.warning {
+  background: var(--sf-warning-bg);
+  color: var(--sf-warning-text);
+}
+
+/* ==========================================================================
+   Widgets (Inventory Alerts & Top Products)
+   ========================================================================== */
+/* Inventory Alert Card (Image 2 Mirror) */
+.sf-alert-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--sf-border);
+  gap: 12px;
+}
+
+.sf-alert-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sf-alert-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.sf-alert-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sf-alert-dot.critical {
+  background-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.sf-alert-dot.low {
+  background-color: #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+
+.sf-alert-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--sf-text-main);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sf-alert-category {
+  font-size: 0.76rem;
+  color: var(--sf-text-subtle);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sf-alert-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.sf-alert-qty {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sf-text-main);
+  white-space: nowrap;
+}
+
+.sf-alert-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--sf-radius-pill);
+  display: inline-block;
+  margin-top: 2px;
+}
+
+/* Top Product List */
+.sf-product-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--sf-border);
+}
+
+.sf-product-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sf-product-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+  background-color: #F1F5F9;
+  border: 1px solid var(--sf-border);
+  flex-shrink: 0;
+}
+
+.sf-product-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.sf-product-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--sf-text-main);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sf-product-meta {
+  font-size: 0.76rem;
+  color: var(--sf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Progress bar inside widgets */
+.sf-progress-track {
+  height: 5px;
+  background-color: #E2E8F0;
+  border-radius: var(--sf-radius-pill);
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.sf-progress-fill {
+  height: 100%;
+  background-color: var(--sf-primary);
+  border-radius: var(--sf-radius-pill);
+}
+
+/* ==========================================================================
+   Modern Clean Table Styling (Image 3)
+   ========================================================================== */
+.sf-table-responsive {
+  border-radius: var(--sf-radius-md);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table.sf-table {
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.table.sf-table thead th {
+  background-color: #F8FAFC;
+  color: var(--sf-text-muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--sf-border-strong);
+  border-top: none;
+  white-space: nowrap;
+}
+
+.table.sf-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.table.sf-table tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+.table.sf-table tbody td {
+  padding: 14px 16px;
+  font-size: 0.86rem;
+  color: var(--sf-text-main);
+  vertical-align: middle;
+  border-bottom: 1px solid var(--sf-border);
+}
+
+.sf-thumb-sm {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #F1F5F9;
+  border: 1px solid var(--sf-border);
+  flex-shrink: 0;
+}
+
+/* Badges */
+.badge-soft-success {
+  background-color: var(--sf-success-bg);
+  color: var(--sf-success-text);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--sf-radius-pill);
+  font-size: 0.74rem;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.badge-soft-warning {
+  background-color: var(--sf-warning-bg);
+  color: var(--sf-warning-text);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--sf-radius-pill);
+  font-size: 0.74rem;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.badge-soft-danger {
+  background-color: var(--sf-danger-bg);
+  color: var(--sf-danger-text);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--sf-radius-pill);
+  font-size: 0.74rem;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.badge-soft-info {
+  background-color: var(--sf-info-bg);
+  color: var(--sf-info-text);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--sf-radius-pill);
+  font-size: 0.74rem;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Buttons & Form Controls
+   ========================================================================== */
+.btn-sf-primary {
+  background-color: var(--sf-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.86rem;
+  padding: 9px 18px;
+  border-radius: var(--sf-radius-pill);
+  border: 1px solid var(--sf-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-sf-primary:hover {
+  background-color: var(--sf-primary-hover);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 56, 44, 0.25);
+}
+
+.btn-sf-light {
+  background-color: #F1F5F9;
+  color: var(--sf-text-main);
+  font-weight: 600;
+  font-size: 0.86rem;
+  padding: 9px 18px;
+  border-radius: var(--sf-radius-pill);
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-sf-light:hover {
+  background-color: #E2E8F0;
+  color: var(--sf-text-main);
+}
+
+.btn-sf-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--sf-border-strong);
+  background: #fff;
+  color: var(--sf-text-muted);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-sf-icon:hover {
+  background: #F1F5F9;
+  color: var(--sf-text-main);
+}
+
+.btn-sf-icon.danger:hover {
+  background: var(--sf-danger-bg);
+  color: var(--sf-danger-text);
+  border-color: #FECACA;
+}
+
+/* ==========================================================================
+   Topbar Stock Notification Dropdown (Storeflow Clean Design)
+   ========================================================================== */
+.sf-notif-menu {
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  padding: 0;
+  border: 1px solid var(--sf-border-strong);
+  border-radius: 16px;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+  z-index: 1060;
+}
+
+.sf-notif-header {
+  padding: 14px 18px 12px 18px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--sf-border);
+}
+
+.sf-notif-header-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--sf-text-main);
+  letter-spacing: -0.01em;
+}
+
+.sf-notif-list {
+  max-height: 350px;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+/* Custom Scrollbar for Notification List */
+.sf-notif-list::-webkit-scrollbar {
+  width: 5px;
+}
+.sf-notif-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sf-notif-list::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 10px;
+}
+
+.sf-notif-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: all 0.18s ease-in-out;
+  color: inherit;
+  text-decoration: none;
+  margin-bottom: 4px;
+  background-color: transparent;
+}
+
+.sf-notif-row:last-child {
+  margin-bottom: 0;
+}
+
+.sf-notif-row:hover {
+  background-color: #F8FAFC;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sf-notif-thumb-wrap {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.sf-notif-thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--sf-border);
+  background-color: #F8FAFC;
+  display: block;
+}
+
+.sf-notif-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+}
+
+.sf-notif-dot.critical {
+  background-color: #EF4444;
+}
+
+.sf-notif-dot.warning {
+  background-color: #F59E0B;
+}
+
+.sf-notif-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sf-notif-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--sf-text-main);
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sf-notif-meta {
+  font-size: 0.74rem;
+  color: var(--sf-text-muted);
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sf-notif-meta .sf-bullet {
+  color: #CBD5E1;
+  font-size: 0.7rem;
+}
+
+.sf-notif-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.sf-notif-badge {
+  font-size: 0.68rem !important;
+  font-weight: 600;
+  padding: 3px 8px;
+}
+
+.sf-notif-link {
+  font-size: 0.72rem;
+  color: var(--sf-primary);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.75;
+  transition: all 0.15s ease;
+}
+
+.sf-notif-row:hover .sf-notif-link {
+  opacity: 1;
+  color: var(--sf-primary-hover);
+  transform: translateX(2px);
+}
+
+.sf-notif-empty {
+  padding: 32px 20px;
+}
+
+.sf-notif-empty-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--sf-success-bg);
+  color: var(--sf-success-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.sf-notif-footer {
+  padding: 10px 14px;
+  background: #F8FAFC;
+  border-top: 1px solid var(--sf-border);
+}
+
+.sf-notif-footer .btn {
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+/* Form inputs */
+.form-control.sf-input,
+.form-select.sf-input {
+  border-radius: 12px;
+  border: 1px solid var(--sf-border-strong);
+  padding: 9px 14px;
+  font-size: 0.88rem;
+  color: var(--sf-text-main);
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+.form-control.sf-input:focus,
+.form-select.sf-input:focus {
+  border-color: var(--sf-primary);
+  box-shadow: 0 0 0 3px rgba(15, 56, 44, 0.12);
+}
+
+/* ==========================================================================
+   Split-Screen Login Page (Image 1 Mirror)
+   ========================================================================== */
+.sf-login-page {
+  min-height: 100vh;
+  display: flex;
+  background-color: #fff;
+}
+
+.sf-login-hero {
+  flex: 1.1;
+  position: relative;
+  background: url('https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80') center center / cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 60px;
+  color: #fff;
+}
+
+.sf-login-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(15, 56, 44, 0.3) 0%, rgba(15, 56, 44, 0.85) 60%, rgba(10, 38, 30, 0.95) 100%);
+}
+
+.sf-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+}
+
+.sf-hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sf-hero-brand .logo-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.sf-hero-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+}
+
+.sf-hero-desc {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+.sf-login-form-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.sf-login-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.sf-login-logo {
+  width: 54px;
+  height: 54px;
+  background: var(--sf-primary);
+  color: #fff;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 8px 20px rgba(15, 56, 44, 0.25);
+}
+
+.sf-demo-credentials {
+  background: #F8FAFC;
+  border: 1px dashed var(--sf-border-strong);
+  border-radius: var(--sf-radius-md);
+  padding: 12px 14px;
+  margin-top: 20px;
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1199.98px) {
+  .sf-search-box {
+    width: 240px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .sf-login-hero {
+    display: none;
+  }
+  .sf-sidebar {
+    transform: translateX(-100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+  .sf-sidebar.show {
+    transform: translateX(0);
+  }
+  .sf-main-content {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .sf-topbar {
+    padding: 0 18px;
+    height: 66px;
+  }
+  .sf-body-container {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .sf-search-box {
+    display: none;
+  }
+  .sf-stat-value {
+    font-size: 1.5rem;
+  }
+  .sf-login-form-area {
+    padding: 24px 16px;
+  }
+}

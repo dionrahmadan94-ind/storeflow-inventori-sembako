@@ -1,0 +1,12 @@
+{
+  "mcp": {
+    "servers": {
+      "word": {
+        "type": "local",
+        "command": [
+          "/Users/macbookpro2019/.local/share/mcp/Office-Word-MCP-Server/.venv/bin/word_mcp_server"
+        ]
+      }
+    }
+  }
+}
